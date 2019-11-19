@@ -41,6 +41,9 @@ def home(request):
         now = datetime.now()
         today_year = str(now.year)
 
+        time1 = datetime(int(now.year), int(now.month), int(now.month), 22, 00, 1) #10시 이후에는 불가능!
+        time2 = datetime(int(now.year), int(now.month), int(now.month), 23, 59, 59) #10시 이후에는 불가능!
+
         if(len(str(now.month))==1):
             today_month = "0" + str(now.month)
         else:
@@ -60,9 +63,12 @@ def home(request):
             'emgTel': '010-0000-0000'
         }
 
-        r = session.post(apply_dorm, data=data)
-
-        r.raise_for_status()
+        if datetime.now() > time1 and datetime.now() < time2:
+            r = session.post(apply_dorm, data=data)
+            r.raise_for_status()
+            doned = "완료되었습니다!"
+        else:
+            doned = "10시 이후에는 불가능 합니다!! 다음날 기달리세요!"
 
         ##오류 나거나 했을 경우 어떤 오류인지 보여주게 bs4이용해서 그 내용 보여주기!
         #혹은 됬는지 확인 하기 위해서 보여주기
@@ -84,6 +90,6 @@ def home(request):
         else:
             pass
 
-        return render(request, 'home.html', {"error_check":he_coin[1:-1]})
+        return render(request, 'home.html', {"error_check":he_coin[1:-1], "doned":doned})
 
     return render(request, 'home.html')
