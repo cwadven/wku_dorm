@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>외박신청(사용가능?)</title>
+</head>
+<body>
+    <form method="POST" action="{%url 'home'%}">
+        {%csrf_token%}
+        <h1>웹 정보 로그인을 위해 정보를 입력하세요</h1>
+        기본값 [ 사유 : 공부, 숙박위치 : 기숙사, 전화번호 : 010-0000-0000, 날짜 : 오늘 날짜]<br><br>
+        아이디 : <input type="text" name="username" required/><br>
+        비밀번호 : <input type="password" name="password" required/><br>
+        <input type="submit" value="외박신청"/>
+    </form>
+
+    <h3>확인창</h3>
+
+    {{error_check|safe}}
+    <br><br>
+</body>
+</html>
