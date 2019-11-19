@@ -44,6 +44,7 @@
         left:50%;
         margin-left: -10px;
         z-index: 2;
+        font-weight: bold;
     }
 </style>
 <script>
@@ -66,7 +67,7 @@
     </form>
 
     <h3>확인창</h3>
-    {{doned}}
+    {{doned|safe}}
     {{error_check|safe}}
     <br><br>
 </body>

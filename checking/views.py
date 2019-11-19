@@ -62,17 +62,17 @@ def home(request):
             'ContextPath': 'goOutList.jsp',
             'Process': 'goOutApply',
             'outDate': str(today_year) + str(today_month) + str(today_day), #오늘 날짜 내기!
-            'reason': 'study',
+            'reason': 'study한',
             'location': 'dormitory',
             'emgTel': '010-0000-0000'
         }
 
         if datetime.now() > time1 and datetime.now() < time2:
-            doned = "10시 이후에는 불가능 합니다!! 다음날 기달리세요!"
+            doned = "10시 이후에는 불가능 합니다!! 다음날 기달리세요!<br>"
         else:
             r = session.post(apply_dorm, data=data, headers=headers)
             r.raise_for_status()
-            doned = "완료되었습니다!"
+            doned = "완료되었습니다!<br>"
 
         ##오류 나거나 했을 경우 어떤 오류인지 보여주게 bs4이용해서 그 내용 보여주기!
         #혹은 됬는지 확인 하기 위해서 보여주기
