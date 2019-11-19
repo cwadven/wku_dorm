@@ -54,6 +54,10 @@ def home(request):
         else:
             today_day = str(now.day)
 
+        headers = {
+            'Content-Type': 'text/html;charset=EUC-KR'
+        }
+
         data = {
             'ContextPath': 'goOutList.jsp',
             'Process': 'goOutApply',
@@ -66,7 +70,7 @@ def home(request):
         if datetime.now() > time1 and datetime.now() < time2:
             doned = "10시 이후에는 불가능 합니다!! 다음날 기달리세요!"
         else:
-            r = session.post(apply_dorm, data=data)
+            r = session.post(apply_dorm, data=data, headers=headers)
             r.raise_for_status()
             doned = "완료되었습니다!"
 
