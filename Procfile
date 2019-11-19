@@ -1,0 +1,1 @@
+web: gunicorn wku_dorm.wsgi --log-file -
