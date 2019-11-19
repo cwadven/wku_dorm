@@ -87,7 +87,9 @@ def home(request):
         
         if len(aa) == 0:
             he_coin = "[회원 정보가 없습니다!]"
+            doned = ""
         else:
+            doned = "완료되었습니다!"
             pass
 
         return render(request, 'home.html', {"error_check":he_coin[1:-1], "doned":doned})
