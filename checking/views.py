@@ -41,8 +41,8 @@ def home(request):
         now = datetime.now()
         today_year = str(now.year)
 
-        time1 = datetime(int(now.year), int(now.month), int(now.month), 22, 00, 1) #10시 이후에는 불가능!
-        time2 = datetime(int(now.year), int(now.month), int(now.month), 23, 59, 59) #10시 이후에는 불가능!
+        time1 = datetime(int(now.year), int(now.month), int(now.day), 22, 00, 1) #10시 이후에는 불가능!
+        time2 = datetime(int(now.year), int(now.month), int(now.day), 23, 59, 59) #10시 이후에는 불가능!
 
         if(len(str(now.month))==1):
             today_month = "0" + str(now.month)
@@ -89,7 +89,6 @@ def home(request):
             he_coin = "[회원 정보가 없습니다!]"
             doned = ""
         else:
-            doned = "완료되었습니다!"
             pass
 
         return render(request, 'home.html', {"error_check":he_coin[1:-1], "doned":doned})

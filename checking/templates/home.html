@@ -8,8 +8,55 @@
     <link rel="shortcut icon" type="image/png" href="{% static 'wkuicon.ico' %}"/>
     <title>외박신청</title>
 </head>
+<style>
+    #loader {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #6fff82;
+        width: 120px;
+        height: 120px;
+        -webkit-animation: spin 2s linear infinite; /* Safari */
+        animation: spin 2s linear infinite;
+        display: none;
+        z-index: 1;
+        position:absolute;
+        top:50%;
+        left:50%;
+        margin-left: -60px;
+        margin-top: -60px;
+    }
+
+    @-webkit-keyframes spin {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    #message_wait{
+        position:absolute;
+        display: none;
+        background-color:white;
+        top:50%;
+        left:50%;
+        margin-left: -10px;
+        z-index: 2;
+    }
+</style>
+<script>
+    function show_load() {
+            document.getElementById("loader").style.display = "inline";
+            document.getElementById("message_wait").style.display = "inline";
+            return true;
+    }
+</script>
 <body>
-    <form method="POST" action="{%url 'home'%}">
+    <div id="loader"></div>
+    <div id="message_wait">Loading</div>
+    <form method="POST" action="{%url 'home'%}" onsubmit="return show_load();">
         {%csrf_token%}
         <h1>웹 정보 로그인을 위해 정보를 입력하세요</h1>
         기본값 [ 사유 : 공부, 숙박위치 : 기숙사, 전화번호 : 010-0000-0000, 날짜 : 오늘 날짜]<br><br>
