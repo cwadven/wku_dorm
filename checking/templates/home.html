@@ -60,9 +60,10 @@
     <form method="POST" action="{%url 'home'%}" onsubmit="return show_load();">
         {%csrf_token%}
         <h1>웹 정보 로그인을 위해 정보를 입력하세요</h1>
-        기본값 [ 사유 : 공부, 숙박위치 : 기숙사, 전화번호 : 010-0000-0000, 날짜 : 오늘 날짜]<br><br>
+        기본값 [숙박위치 : 기숙사, 전화번호 : 010-0000-0000, 날짜 : 오늘 날짜]<br><br>
         아이디 : <input type="text" name="username" required/><br>
         비밀번호 : <input type="password" name="password" required/><br>
+        외박사유 : <input type="text" name="reasons" required/><br>
         <input type="submit" value="외박신청"/>
     </form>
 

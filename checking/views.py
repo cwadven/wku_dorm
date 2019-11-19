@@ -9,6 +9,7 @@ def home(request):
     if request.method == 'POST':
         userid = request.POST.get("username")
         passwd = request.POST.get("password")
+        reasons = request.POST.get("reasons")
 
         login_url = 'https://auth.wku.ac.kr/Cert/User/Login/login.jsp'
         #아에 alert에서 막혀버림....
@@ -53,24 +54,20 @@ def home(request):
             today_day = "0" + str(now.day)
         else:
             today_day = str(now.day)
-
-        headers = {
-            'Content-Type': 'text/html;charset=EUC-KR'
-        }
-
+        #-*- coding: euc-kr -*-
         data = {
             'ContextPath': 'goOutList.jsp',
             'Process': 'goOutApply',
             'outDate': str(today_year) + str(today_month) + str(today_day), #오늘 날짜 내기!
-            'reason': 'study한',
-            'location': 'dormitory',
+            'reason': reasons.encode('euc-kr'),
+            'location': '기숙사'.encode('euc-kr'),
             'emgTel': '010-0000-0000'
         }
 
         if datetime.now() > time1 and datetime.now() < time2:
             doned = "10시 이후에는 불가능 합니다!! 다음날 기달리세요!<br><br>"
         else:
-            r = session.post(apply_dorm, data=data, headers=headers)
+            r = session.post(apply_dorm, data=data)
             r.raise_for_status()
             doned = "완료되었습니다!<br><br>"
 
