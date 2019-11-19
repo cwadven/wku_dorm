@@ -121,6 +121,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'checking', 'static')
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Heroku: Update database configuration from $DATABASE_URL.
 import dj_database_url
