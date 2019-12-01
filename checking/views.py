@@ -66,7 +66,7 @@ def home(request):
         }
 
         if datetime.now() > time1 and datetime.now() < time2:
-            doned = "10시 이후에는 불가능 합니다!! 다음날 기달리세요!<br><br>"
+            doned = "22시 이후에는 불가능 합니다!!<br>다음날 기달리세요!<br><br>"
         else:
             r = session.post(apply_dorm, data=data)
             r.raise_for_status()
