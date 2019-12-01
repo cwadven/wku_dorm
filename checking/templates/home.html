@@ -14,6 +14,12 @@
         background-color:#444444;
         color:whitesmoke;
         text-align: center;
+
+        height:100%;
+        margin:0;
+        width:100%;
+        text-align: center;
+        display:table;
     }
 
     table{
@@ -123,6 +129,7 @@
 
 </script>
 <body onload="display_ct()">
+    <div style="display:table-cell; vertical-align:middle;">
     <div id="loader"></div>
     <div id="message_wait">Loading</div>
     <form method="POST" action="{%url 'home'%}" onsubmit="return show_load();">
@@ -148,5 +155,6 @@
     {{error_check|safe}}
     </div>
     <br><br>
+</div>
 </body>
 </html>
