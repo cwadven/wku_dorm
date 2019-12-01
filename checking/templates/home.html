@@ -9,6 +9,35 @@
     <title>외박신청</title>
 </head>
 <style>
+
+    body, html{
+        background-color:#444444;
+        color:whitesmoke;
+        text-align: center;
+    }
+
+    table{
+        background-color: aliceblue;
+        color:#444444;
+        border-radius: 12px;
+    }
+
+    td{
+        padding:3px;
+        border-style: double;
+        border-right-color:#444444;
+        border-left-color:#444444;
+    }
+
+    a {
+        display:none;
+    }
+
+    th{
+        border-radius: 12px;
+        color:#444444;
+    }
+
     #loader {
         border: 16px solid #f3f3f3;
         border-radius: 50%;
@@ -26,14 +55,38 @@
         margin-top: -60px;
     }
 
+    .button {
+        background-color: orange;
+        border: none;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        margin: 4px 2px;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    input[type=text],input[type=password] {
+    padding: 8px 10px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    }
+
     @-webkit-keyframes spin {
             0% { -webkit-transform: rotate(0deg); }
             100% { -webkit-transform: rotate(360deg); }
         }
 
-        @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+    @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
     }
 
     #message_wait{
@@ -46,6 +99,7 @@
         z-index: 2;
         font-weight: bold;
     }
+
 </style>
 <script>
     function show_load() {
@@ -59,17 +113,19 @@
     <div id="message_wait">Loading</div>
     <form method="POST" action="{%url 'home'%}" onsubmit="return show_load();">
         {%csrf_token%}
-        <h1>웹 정보 로그인을 위해 정보를 입력하세요</h1>
-        기본값 [숙박위치 : 기숙사, 전화번호 : 010-0000-0000, 날짜 : 오늘 날짜]<br><br>
+        <h1>웹 정보<br>로그인을 위해<br>정보를 입력하세요</h1>
+        <span style="font-style: oblique;">기본값 [숙박위치 : 기숙사, 전화번호 : 010-0000-0000, 날짜 : 오늘 날짜]</span><br><br>
         아이디 : <input type="text" name="username" required/><br>
         비밀번호 : <input type="password" name="password" required/><br>
-        외박사유 : <input type="text" name="reasons" required/><br>
-        <input type="submit" value="외박신청"/>
+        외박사유 : <input type="text" name="reasons" required/><br><br>
+        <input class="button" type="submit" value="외박신청"/>
     </form>
 
     <h3>확인창</h3>
     {{doned|safe}}
+    <div style="margin:auto;text-align:-webkit-center;">
     {{error_check|safe}}
+    </div>
     <br><br>
 </body>
 </html>
