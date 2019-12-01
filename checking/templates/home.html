@@ -107,13 +107,28 @@
             document.getElementById("message_wait").style.display = "inline";
             return true;
     }
+
+    function display_c(){
+        var refresh=1000; // Refresh rate in milli seconds
+        mytime=setTimeout('display_ct()',refresh)
+    }
+
+    function display_ct() {
+        var now = new Date();
+        var x1;
+        x1 = now.getFullYear() + "년 " + (now.getMonth()+1) + "월 " + now.getDate() + "일 " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+        document.getElementById('ct').innerHTML = x1;
+        display_c();
+    }
+
 </script>
-<body>
+<body onload="display_ct()">
     <div id="loader"></div>
     <div id="message_wait">Loading</div>
     <form method="POST" action="{%url 'home'%}" onsubmit="return show_load();">
         {%csrf_token%}
         <h1>웹 정보<br>로그인을 위해<br>정보를 입력하세요</h1>
+        <strong><span style="color:paleturquoise;" id='ct'></span></strong><br>
         <span style="font-style: oblique;">기본값 [숙박위치 : 기숙사, 전화번호 : 010-0000-0000, 날짜 : 오늘 날짜]</span><br><br>
         아이디 : <input type="text" name="username" required/><br>
         비밀번호 : <input type="password" name="password" required/><br>
