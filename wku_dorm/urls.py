@@ -20,4 +20,5 @@ import checking.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', checking.views.home, name='home'),
+    path('delete/', checking.views.delete, name='delete'),
 ]

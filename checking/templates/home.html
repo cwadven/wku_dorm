@@ -92,7 +92,7 @@
     #message_wait{
         position:absolute;
         display: none;
-        background-color:white;
+        color:whitesmoke;
         top:50%;
         left:50%;
         margin-left: -10px;
@@ -118,8 +118,14 @@
         아이디 : <input type="text" name="username" required/><br>
         비밀번호 : <input type="password" name="password" required/><br>
         외박사유 : <input type="text" name="reasons" required/><br><br>
-        <input class="button" type="submit" value="외박신청"/>
+        <input name="submited" class="button" type="submit" value="외박신청"/>
     </form>
+    {%if doned == "완료되었습니다!<br><br>"%}
+    <form method="POST" action="{%url 'delete'%}" onsubmit="return show_load();">
+            {%csrf_token%}
+        <input style="background-color: rgb(173, 27, 27);" class="button" type="submit" value="오늘외박취소"/>
+    </form>
+    {%endif%}
 
     <h3>확인창</h3>
     {{doned|safe}}
