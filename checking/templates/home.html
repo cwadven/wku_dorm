@@ -140,9 +140,9 @@
         {%csrf_token%}
         <h1>웹 정보 로그인<br>정보를 입력하세요</h1>
         <strong><span style="color:paleturquoise;" id='ct'></span></strong><br>
-        아이디 : <input type="text" name="username" required/><br>
-        비밀번호 : <input type="password" name="password" required/><br>
-        외박사유 : <input type="text" name="reasons" required/><br>
+        <input type="text" name="username" value="{{id}}" required placeholder="아이디"/><br>
+        <input type="password" name="password" value="{{pw}}" required placeholder="비밀번호"/><br>
+        <input type="text" name="reasons" placeholder="외박사유(기본:공부)"/><br>
         <input name="submited" class="button" type="submit" value="외박신청"/> <input name="score" class="button yellowgreen" type="submit" value="성적확인"/><br>
         <span style="font-style: oblique;font-size: 10px;">기본값<br>[위치 : 기숙사, 번호 : 010-0000-0000, 날짜 : 오늘]</span><br><br>
     </form>

@@ -10,7 +10,7 @@ def home(request):
     if request.method == 'POST':
         userid = request.POST.get("username")
         passwd = request.POST.get("password")
-        reasons = request.POST.get("reasons")
+        reasons = request.POST.get("reasons", "공부")
 
         login_url = 'https://auth.wku.ac.kr/Cert/User/Login/login.jsp'
        
@@ -22,7 +22,15 @@ def home(request):
             'passwd': str(passwd),
         }
 
-        res = session.post(login_url, data=data)
+        try:
+            res = session.post(login_url, data=data)
+        except: # 인터넷 안됬을 경우 예외처리!
+            content = {
+                "doned":"인터넷 오류입니다!",
+                "id":userid,
+                "pw":passwd
+            }
+            return render(request, 'home.html', content)
 
         res.raise_for_status() 
 
@@ -42,7 +50,6 @@ def home(request):
             r = session.get(sorce_3)
             doned = "성적 확인<br><br>"
         else:
-
             apply_dorm = 'https://intra.wku.ac.kr/SWupis/V005/CommonServ/dormitory/stud/dormAction.jsp'
 
             now = datetime.now()
@@ -51,17 +58,17 @@ def home(request):
             time1 = datetime(int(now.year), int(now.month), int(now.day), 22, 00, 1) #10시 이후에는 불가능!
             time2 = datetime(int(now.year), int(now.month), int(now.day), 23, 59, 59) #10시 이후에는 불가능!
 
-            if(len(str(now.month))==1):
+            if(len(str(now.month))==1): #now.month를 하면 1,2,3, 형식으로 나오는데 넣는 곳은 01, 02로 해야되서 데이터 가공
                 today_month = "0" + str(now.month)
-            else:
+            else: 
                 today_month = str(now.month)
 
-            if(len(str(now.day))==1):
+            if(len(str(now.day))==1): #now.day를 하면 1,2,3, 형식으로 나오는데 넣는 곳은 01, 02로 해야되서 데이터 가공
                 today_day = "0" + str(now.day)
             else:
                 today_day = str(now.day)
             #-*- coding: euc-kr -*-
-            data = {
+            data = { #데이터를 이렇게 보내겠다!
                 'ContextPath': 'goOutList.jsp',
                 'Process': 'goOutApply',
                 'outDate': str(today_year) + str(today_month) + str(today_day), #오늘 날짜 내기!
@@ -74,7 +81,7 @@ def home(request):
                 doned = "22시 이후에는 불가능 합니다!!<br>다음날 기달리세요!<br><br>"
             elif datetime.now().isoweekday() == 6 or datetime.now().isoweekday() == 7: #주말에 안되게 만들기
                 doned = "주말은 불가능 해요!<br><br>"
-            else:
+            else: #정상 처리 됬을 경우 apply_dorm에 데이터를 실어서 POST한다
                 r = session.post(apply_dorm, data=data)
                 r.raise_for_status()
                 doned = "완료되었습니다!<br><br>"
@@ -91,12 +98,10 @@ def home(request):
         soup = BeautifulSoup(r.text, 'html.parser') #html로 되어있는 소스코드를 박아 버린다
 
 
-        he_coin = soup.find_all('table')
-        aa = he_coin
-
-        he_coin = str(he_coin)
+        he_coin = soup.find_all('table') #크롤링을 해서 "table" 태그를 가진 친구들만 가져온다!
+        he_coin = str(he_coin) #글로 바꾸기!
         
-        if len(aa) == 0:
+        if len(he_coin) == 0: #로그인 정보가 이상하면 he_coin 즉 table 태그를 가진 친구를 찾을 수가 없어서 길이가 0임!
             he_coin = "[회원 정보가 없습니다!]"
             doned = ""
             request.session['userid'] = "NONE"
@@ -104,12 +109,12 @@ def home(request):
         else:
             pass
 
-        return render(request, 'home.html', {"error_check":he_coin[1:-1], "doned":doned})
+        return render(request, 'home.html', {"error_check":he_coin[1:-1], "doned":doned})# table을 크롤링을 통해서 가져오면 양 끝에 "[]"이 친구들이 남아서 없애려고! he_coin[1:-1]
     return render(request, 'home.html')
 
 def delete(request):
     if request.method == 'POST':
-        if request.session.get('userid','NONE') == 'NONE':
+        if request.session.get('userid','NONE') == 'NONE': #예외처리를 위해서 어떠한 경우 이렇게 만들기! 즉 seesion 값이 중간에 사라졌을 경우!
             he_coin = "[회원 정보가 없습니다!<br>로그인 후 이용하세요]"
             doned = ""
             return render(request, 'home.html', {"error_check":he_coin[1:-1], "doned":doned})
@@ -180,7 +185,7 @@ def delete(request):
             doned = "취소가 완료되었습니다!<br><br>" #메시지창 떳을 경우 예외처리하기
 
 
-        check_dorm = 'https://intra.wku.ac.kr/SWupis/V005/CommonServ/dormitory/stud/goOutList.jsp'
+        check_dorm = 'https://intra.wku.ac.kr/SWupis/V005/CommonServ/dormitory/stud/goOutList.jsp' #크롤링 해서 밑에 보여주기 위해서 아래 전부 크롤링
 
         r = session.get(check_dorm)
         r.raise_for_status()
@@ -188,7 +193,6 @@ def delete(request):
         soup = BeautifulSoup(r.text, 'html.parser') #html로 되어있는 소스코드를 박아 버린다
 
         he_coin = soup.find_all('table')
-        aa = he_coin
 
         he_coin = str(he_coin)
 
