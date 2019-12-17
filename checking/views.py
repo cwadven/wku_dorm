@@ -37,49 +37,56 @@ def home(request):
         # 응답코드가 200 즉, OK가 아닌 경우 에러를 발생시키는 메서드입니다.
         r.raise_for_status()
         # 요청할 데이터
-
-        apply_dorm = 'https://intra.wku.ac.kr/SWupis/V005/CommonServ/dormitory/stud/dormAction.jsp'
-
-        now = datetime.now()
-        today_year = str(now.year)
-
-        time1 = datetime(int(now.year), int(now.month), int(now.day), 22, 00, 1) #10시 이후에는 불가능!
-        time2 = datetime(int(now.year), int(now.month), int(now.day), 23, 59, 59) #10시 이후에는 불가능!
-
-        if(len(str(now.month))==1):
-            today_month = "0" + str(now.month)
+        if request.method == 'POST' and "score" in request.POST: #성적 확인 소스코드 if랑 밑에 있는 Else 지우고 if 안에 있는 녀석 다 지우고 html에 가서 home에서 submit 하나더 지우면 끝
+            sorce_3 = 'https://intra.wku.ac.kr/SWupis/V005/Service/Stud/Score/scoreTable.jsp?sm=3'
+            r = session.get(sorce_3)
+            doned = "성적 확인<br><br>"
         else:
-            today_month = str(now.month)
 
-        if(len(str(now.day))==1):
-            today_day = "0" + str(now.day)
-        else:
-            today_day = str(now.day)
-        #-*- coding: euc-kr -*-
-        data = {
-            'ContextPath': 'goOutList.jsp',
-            'Process': 'goOutApply',
-            'outDate': str(today_year) + str(today_month) + str(today_day), #오늘 날짜 내기!
-            'reason': reasons.encode('euc-kr'),
-            'location': '기숙사'.encode('euc-kr'),
-            'emgTel': '010-0000-0000'
-        }
+            apply_dorm = 'https://intra.wku.ac.kr/SWupis/V005/CommonServ/dormitory/stud/dormAction.jsp'
 
-        if datetime.now() > time1 and datetime.now() < time2:
-            doned = "22시 이후에는 불가능 합니다!!<br>다음날 기달리세요!<br><br>"
-        else:
-            r = session.post(apply_dorm, data=data)
-            r.raise_for_status()
-            doned = "완료되었습니다!<br><br>"
-            request.session['userid'] = userid
-            request.session['passwd'] = passwd
+            now = datetime.now()
+            today_year = str(now.year)
 
-        ##오류 나거나 했을 경우 어떤 오류인지 보여주게 bs4이용해서 그 내용 보여주기!
-        #혹은 됬는지 확인 하기 위해서 보여주기
+            time1 = datetime(int(now.year), int(now.month), int(now.day), 22, 00, 1) #10시 이후에는 불가능!
+            time2 = datetime(int(now.year), int(now.month), int(now.day), 23, 59, 59) #10시 이후에는 불가능!
 
-        check_dorm = 'https://intra.wku.ac.kr/SWupis/V005/CommonServ/dormitory/stud/goOutList.jsp'
+            if(len(str(now.month))==1):
+                today_month = "0" + str(now.month)
+            else:
+                today_month = str(now.month)
 
-        r = session.get(check_dorm)
+            if(len(str(now.day))==1):
+                today_day = "0" + str(now.day)
+            else:
+                today_day = str(now.day)
+            #-*- coding: euc-kr -*-
+            data = {
+                'ContextPath': 'goOutList.jsp',
+                'Process': 'goOutApply',
+                'outDate': str(today_year) + str(today_month) + str(today_day), #오늘 날짜 내기!
+                'reason': reasons.encode('euc-kr'),
+                'location': '기숙사'.encode('euc-kr'),
+                'emgTel': '010-0000-0000'
+            }
+
+            if datetime.now() > time1 and datetime.now() < time2: #10시 이후에는 불가능!
+                doned = "22시 이후에는 불가능 합니다!!<br>다음날 기달리세요!<br><br>"
+            elif datetime.now().isoweekday() == 6 or datetime.now().isoweekday() == 7: #주말에 안되게 만들기
+                doned = "주말은 불가능 해요!<br><br>"
+            else:
+                r = session.post(apply_dorm, data=data)
+                r.raise_for_status()
+                doned = "완료되었습니다!<br><br>"
+                request.session['userid'] = userid
+                request.session['passwd'] = passwd
+
+            ##오류 나거나 했을 경우 어떤 오류인지 보여주게 bs4이용해서 그 내용 보여주기!
+            #혹은 됬는지 확인 하기 위해서 보여주기
+
+            check_dorm = 'https://intra.wku.ac.kr/SWupis/V005/CommonServ/dormitory/stud/goOutList.jsp'
+
+            r = session.get(check_dorm)
 
         soup = BeautifulSoup(r.text, 'html.parser') #html로 되어있는 소스코드를 박아 버린다
 
