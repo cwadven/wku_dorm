@@ -101,7 +101,14 @@ def home(request):
         he_coin = soup.find_all('table') #크롤링을 해서 "table" 태그를 가진 친구들만 가져온다!
         he_coin = str(he_coin) #글로 바꾸기!
         
+        
+
         if len(he_coin) == 0: #로그인 정보가 이상하면 he_coin 즉 table 태그를 가진 친구를 찾을 수가 없어서 길이가 0임!
+            he_coin = "[회원 정보가 없습니다!]"
+            doned = ""
+            request.session['userid'] = "NONE"
+            request.session['passwd'] = "NONE"
+        elif len(he_coin) == 0: #성적확인 할때는 길이가 2개가 뜸!
             he_coin = "[회원 정보가 없습니다!]"
             doned = ""
             request.session['userid'] = "NONE"
