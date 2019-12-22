@@ -108,7 +108,7 @@ def home(request):
             doned = ""
             request.session['userid'] = "NONE"
             request.session['passwd'] = "NONE"
-        elif len(he_coin) == 0: #성적확인 할때는 길이가 2개가 뜸!
+        elif len(he_coin) == 2: #성적확인 할때는 길이가 2개가 뜸!
             he_coin = "[회원 정보가 없습니다!]"
             doned = ""
             request.session['userid'] = "NONE"
