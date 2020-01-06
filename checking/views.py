@@ -7,6 +7,7 @@ import re
 
 # Create your views here.
 def home(request):
+     
     if request.method == 'POST':
         userid = request.POST.get("username")
         passwd = request.POST.get("password")
@@ -49,6 +50,10 @@ def home(request):
             sorce_3 = 'https://intra.wku.ac.kr/SWupis/V005/Service/Stud/Score/scoreTable.jsp?sm=3'
             r = session.get(sorce_3)
             doned = "성적 확인<br><br>"
+        elif request.method == 'POST' and "graduate" in request.POST:
+            graduated = 'https://intra.wku.ac.kr/SWupis/V005/Service/Stud/Print/studComplete.jsp?sm=3'
+            r = session.get(graduated)
+            doned = "졸업 확인<br><br>"
         else:
             apply_dorm = 'https://intra.wku.ac.kr/SWupis/V005/CommonServ/dormitory/stud/dormAction.jsp'
 
@@ -95,12 +100,28 @@ def home(request):
 
             r = session.get(check_dorm)
 
+        
         soup = BeautifulSoup(r.text, 'html.parser') #html로 되어있는 소스코드를 박아 버린다
 
+        he_coin = soup.find_all('table')
 
-        he_coin = soup.find_all('table') #크롤링을 해서 "table" 태그를 가진 친구들만 가져온다!
+        try: #예외처리를 위해서!
+            for count_ in range(len(he_coin)): #개수를 찾는다!
+                try:
+                    for change_th_style in he_coin[count_].find_all('th'): #찾은 개수만큼 안에 있는 th를 찾는다
+                        change_th_style["style"] = "font-weight:bold;width:100px" #th의 스타일을 변경한다! th에 css를 주기 위해서 자체적으로 들어있는 style을 변경한다         
+                    for change_tr_style in he_coin[count_].find_all('tr', style=True): #찾은 개수만큼 안에 있는 style이 있는 tr를 찾는다!
+                        if change_tr_style["style"] == "background-color:#FAFAFA": #찾는 스타일이 이 경우일 경우!
+                            change_tr_style["style"] = "background-color:antiquewhite" #tr의 스타일을 변경한다! th에 css를 주기 위해서 자체적으로 들어있는 style을 변경한다   
+                except:
+                    pass
+        except:
+            pass
+            
+
         he_coin = str(he_coin) #글로 바꾸기!
-        
+
+        he_coin = he_coin.replace(",", "<br>") #리스트에서 끌고 오는 것이여서 그것을 str 즉 글로 바꾸니깐 , 도 같이 나와서 <br>로 바꿈
         
 
         if len(he_coin) == 0: #로그인 정보가 이상하면 he_coin 즉 table 태그를 가진 친구를 찾을 수가 없어서 길이가 0임!

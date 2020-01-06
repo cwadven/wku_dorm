@@ -11,8 +11,8 @@
 <style>
 
     body, html{
-        background-color:#444444;
-        color:whitesmoke;
+        background-color:#f5f5f5;
+        color:black;
         text-align: center;
 
         height:100%;
@@ -23,9 +23,10 @@
     }
 
     table{
+        border-color:black;
+        border-style: solid;
         background-color: aliceblue;
         color:#444444;
-        border-radius: 12px;
     }
 
     td{
@@ -40,9 +41,10 @@
     }
 
     th{
-        border-radius: 12px;
+        background-color: gold;
         color:#444444;
     }
+
 
     #loader {
         border: 16px solid #f3f3f3;
@@ -78,6 +80,10 @@
 
     .yellowgreen{
         background-color: rgb(126, 185, 47);
+    }
+
+    .lightblue{
+        background-color: rgb(67, 196, 247);
     }
 
     input[type=text],input[type=password] {
@@ -136,14 +142,16 @@
     <div style="display:table-cell; vertical-align:middle;">
     <div id="loader"></div>
     <div id="message_wait">Loading</div>
-    <form method="POST" action="{%url 'home'%}" onsubmit="return show_load();">
+    <form style=" background-color: white; padding:3%; width:90%; margin:auto; border-radius: 15px; border-style:double; box-shadow: 10px 5px 5px rgb(134, 134, 134);" method="POST" action="{%url 'home'%}" onsubmit="return show_load();">
         {%csrf_token%}
         <h1>웹 정보 로그인<br>정보를 입력하세요</h1>
-        <strong><span style="color:paleturquoise;" id='ct'></span></strong><br>
+        <strong><span style="color:#007FCC;" id='ct'></span></strong><br>
         <input type="text" name="username" value="{{id}}" required placeholder="아이디"/><br>
         <input type="password" name="password" value="{{pw}}" required placeholder="비밀번호"/><br>
         <input type="text" name="reasons" placeholder="외박사유(기본:공부)"/><br>
-        <input name="submited" class="button" type="submit" value="외박신청"/> <input name="score" class="button yellowgreen" type="submit" value="성적확인"/><br>
+        <input name="submited" class="button" type="submit" value="외박신청"/> 
+        <input name="score" class="button yellowgreen" type="submit" value="성적확인"/> 
+        <input name="graduate" class="button lightblue" type="submit" value="졸업진단"/><br>
         <span style="font-style: oblique;font-size: 10px;">기본값<br>[위치 : 기숙사, 번호 : 010-0000-0000, 날짜 : 오늘]</span><br><br>
     </form>
     {%if doned == "완료되었습니다!<br><br>"%}
