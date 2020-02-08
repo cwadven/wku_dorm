@@ -12,6 +12,8 @@ def home(request):
         userid = request.POST.get("username")
         passwd = request.POST.get("password")
         reasons = request.POST.get("reasons", "공부")
+        request.session['userid_save'] = userid # 외박 신청등 다른 작업을 해도 아이디가 남아 있도록 하기 위해서 설정
+        request.session['passwd_save'] = passwd # 외박 신청등 다른 작업을 해도 비밀번호가 남아 있도록 하기 위해서 설정
 
         login_url = 'https://auth.wku.ac.kr/Cert/User/Login/login.jsp'
        
@@ -42,6 +44,8 @@ def home(request):
         login_return = 'http://intra.wku.ac.kr/SWupis/V005/loginReturn.jsp' #리턴 해야되더라...
 
         r = session.get(login_return)
+
+        
 
         # 응답코드가 200 즉, OK가 아닌 경우 에러를 발생시키는 메서드입니다.
         r.raise_for_status()
@@ -90,8 +94,7 @@ def home(request):
                 r = session.post(apply_dorm, data=data)
                 r.raise_for_status()
                 doned = "완료되었습니다!<br><br>"
-                request.session['userid'] = userid
-                request.session['passwd'] = passwd
+                
 
             ##오류 나거나 했을 경우 어떤 오류인지 보여주게 bs4이용해서 그 내용 보여주기!
             #혹은 됬는지 확인 하기 위해서 보여주기
@@ -129,15 +132,19 @@ def home(request):
             doned = ""
             request.session['userid'] = "NONE"
             request.session['passwd'] = "NONE"
+            request.session['userid_save'] = ""
+            request.session['passwd_save'] = ""
         elif len(he_coin) == 2: #성적확인 할때는 길이가 2개가 뜸!
             he_coin = "[회원 정보가 없습니다!]"
             doned = ""
             request.session['userid'] = "NONE"
             request.session['passwd'] = "NONE"
+            request.session['userid_save'] = ""
+            request.session['passwd_save'] = ""
         else:
             pass
 
-        return render(request, 'home.html', {"error_check":he_coin[1:-1], "doned":doned})# table을 크롤링을 통해서 가져오면 양 끝에 "[]"이 친구들이 남아서 없애려고! he_coin[1:-1]
+        return render(request, 'home.html', {"error_check":he_coin[1:-1], "doned":doned, "id":request.session.get('userid_save', ""), "pw":request.session.get('passwd_save', "")})# table을 크롤링을 통해서 가져오면 양 끝에 "[]"이 친구들이 남아서 없애려고! he_coin[1:-1]
     return render(request, 'home.html')
 
 def delete(request):
