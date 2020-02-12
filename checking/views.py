@@ -12,8 +12,12 @@ def home(request):
         userid = request.POST.get("username")
         passwd = request.POST.get("password")
         reasons = request.POST.get("reasons", "공부")
+        
         request.session['userid_save'] = userid # 외박 신청등 다른 작업을 해도 아이디가 남아 있도록 하기 위해서 설정
         request.session['passwd_save'] = passwd # 외박 신청등 다른 작업을 해도 비밀번호가 남아 있도록 하기 위해서 설정
+
+        request.session['userid'] = userid #외박 취소 할 경우
+        request.session['passwd'] = passwd #외박 취소 할 경우
 
         login_url = 'https://auth.wku.ac.kr/Cert/User/Login/login.jsp'
        
