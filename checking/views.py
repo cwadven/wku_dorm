@@ -12,6 +12,11 @@ def home(request):
         userid = request.POST.get("username")
         passwd = request.POST.get("password")
         reasons = request.POST.get("reasons", "공부")
+
+        if reasons == "": #기본값으로 "공부가 먹히지 않음.. 그래서 if문"
+            reasons = "공부"
+
+        print(reasons)
         
         request.session['userid_save'] = userid # 외박 신청등 다른 작업을 해도 아이디가 남아 있도록 하기 위해서 설정
         request.session['passwd_save'] = passwd # 외박 신청등 다른 작업을 해도 비밀번호가 남아 있도록 하기 위해서 설정
@@ -235,4 +240,4 @@ def delete(request):
 
         he_coin = str(he_coin)
 
-        return render(request, 'home.html', {"error_check":he_coin[1:-1], "doned":doned})
+        return render(request, 'home.html', {"error_check":he_coin[1:-1], "doned":doned, "id":request.session.get('userid_save', ""), "pw":request.session.get('passwd_save', "")})
