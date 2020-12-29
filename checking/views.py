@@ -43,16 +43,10 @@ def home(request):
             return render(request, 'home.html', content)
 
         res.raise_for_status() 
-
-        first_url = 'http://intra.wku.ac.kr/'
-
-        res = session.get(first_url)
             
         login_return = 'http://intra.wku.ac.kr/SWupis/V005/loginReturn.jsp' #리턴 해야되더라...
 
         r = session.get(login_return)
-
-        
 
         # 응답코드가 200 즉, OK가 아닌 경우 에러를 발생시키는 메서드입니다.
         r.raise_for_status()
@@ -150,7 +144,6 @@ def home(request):
             request.session['passwd_save'] = ""
         else:
             pass
-
         return render(request, 'home.html', {"error_check":he_coin[1:-1], "doned":doned, "id":request.session.get('userid_save', ""), "pw":request.session.get('passwd_save', "")})# table을 크롤링을 통해서 가져오면 양 끝에 "[]"이 친구들이 남아서 없애려고! he_coin[1:-1]
     return render(request, 'home.html')
 
