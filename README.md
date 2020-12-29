@@ -17,35 +17,35 @@
 
 얼마나 많은 클릭을 및 과정을 거친 후, `외박`신청이 가능한지 아래 설명을 해놓았다.
 
-### 외박신청 과정
+## 외박신청 과정
 
-<h3 align="center">로그인</h3>
-<p>
+<h3 align="center">1. 로그인</h3>
+<p align="center">
 <img alt="wkudorm" src="https://github.com/cwadven/wku_dorm/blob/master/assets/step1.PNG"/>
 </p>
 
-<h3 align="center">카테고리 선택</h3>
-<p>
+<h3 align="center">2. 카테고리 선택</h3>
+<p align="center">
 <img alt="wkudorm" src="https://github.com/cwadven/wku_dorm/blob/master/assets/step2.PNG"/>
 </p>
 
-<h3 align="center">기숙사 정보 관리 선택</h3>
-<p>
+<h3 align="center">3. 기숙사 정보 관리 선택</h3>
+<p align="center">
 <img alt="wkudorm" src="https://github.com/cwadven/wku_dorm/blob/master/assets/step3.PNG"/>
 </p>
 
-<h3 align="center">외박 정보 선택</h3>
-<p>
+<h3 align="center">4. 외박 정보 선택</h3>
+<p align="center">
 <img alt="wkudorm" src="https://github.com/cwadven/wku_dorm/blob/master/assets/step4.PNG"/>
 </p>
 
-<h3 align="center">외박 신청하기 선택</h3>
-<p>
+<h3 align="center">5. 외박 신청하기 선택</h3>
+<p align="center">
 <img alt="wkudorm" src="https://github.com/cwadven/wku_dorm/blob/master/assets/step5.PNG"/>
 </p>
 
-<h3 align="center">외박하기 위한 정보 입력 및 신청</h3>
-<p>
+<h3 align="center">6. 외박하기 위한 정보 입력 및 신청</h3>
+<p align="center">
 <img alt="wkudorm" src="https://github.com/cwadven/wku_dorm/blob/master/assets/step6.PNG"/>
 </p>
 
