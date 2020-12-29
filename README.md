@@ -26,27 +26,27 @@
 
 <h3 align="center">카테고리 선택</h3>
 <p>
-<img alt="imagestory" src="https://github.com/cwadven/wku_dorm/blob/master/assets/step2.PNG"/>
+<img alt="wkudorm" src="https://github.com/cwadven/wku_dorm/blob/master/assets/step2.PNG"/>
 </p>
 
 <h3 align="center">기숙사 정보 관리 선택</h3>
 <p>
-<img alt="imagestory" src="https://github.com/cwadven/wku_dorm/blob/master/assets/step3.PNG"/>
+<img alt="wkudorm" src="https://github.com/cwadven/wku_dorm/blob/master/assets/step3.PNG"/>
 </p>
 
 <h3 align="center">외박 정보 선택</h3>
 <p>
-<img alt="imagestory" src="https://github.com/cwadven/wku_dorm/blob/master/assets/step4.PNG"/>
+<img alt="wkudorm" src="https://github.com/cwadven/wku_dorm/blob/master/assets/step4.PNG"/>
 </p>
 
 <h3 align="center">외박 신청하기 선택</h3>
 <p>
-<img alt="imagestory" src="https://github.com/cwadven/wku_dorm/blob/master/assets/step5.PNG"/>
+<img alt="wkudorm" src="https://github.com/cwadven/wku_dorm/blob/master/assets/step5.PNG"/>
 </p>
 
 <h3 align="center">외박하기 위한 정보 입력 및 신청</h3>
 <p>
-<img alt="imagestory" src="https://github.com/cwadven/wku_dorm/blob/master/assets/step6.PNG"/>
+<img alt="wkudorm" src="https://github.com/cwadven/wku_dorm/blob/master/assets/step6.PNG"/>
 </p>
 
 위의 과정을 보다시피 너무 많은 과정 및 시간을 소모한다는 사실을 알 것이다.
