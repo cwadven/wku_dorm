@@ -15,8 +15,6 @@ def home(request):
 
         if reasons == "": #기본값으로 "공부가 먹히지 않음.. 그래서 if문"
             reasons = "공부"
-
-        print(reasons)
         
         request.session['userid_save'] = userid # 외박 신청등 다른 작업을 해도 아이디가 남아 있도록 하기 위해서 설정
         request.session['passwd_save'] = passwd # 외박 신청등 다른 작업을 해도 비밀번호가 남아 있도록 하기 위해서 설정
