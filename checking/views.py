@@ -167,10 +167,6 @@ def delete(request):
         res = session.post(login_url, data=data)
 
         res.raise_for_status() 
-
-        first_url = 'http://intra.wku.ac.kr/'
-
-        res = session.get(first_url)
             
         login_return = 'http://intra.wku.ac.kr/SWupis/V005/loginReturn.jsp' #리턴 해야되더라...
 
